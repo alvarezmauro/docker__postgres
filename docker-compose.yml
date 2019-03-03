@@ -1,0 +1,21 @@
+version: '3.6'
+
+services:
+  postgres-server:
+    image: postgres
+    container_name: postgres-server
+    ports:
+      - ${POSTGRES_PORT}:5432
+    environment:
+      - POSTGRES_DB=test
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      # named volumes
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - postgres_net
+
+networks:
+  postgres_net:
+    driver: bridge
